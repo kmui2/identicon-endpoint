@@ -14,14 +14,9 @@ app.use(morgan('combined'));
 
 app.use(express.json())
 
-app.get<void, string, string>('/', async (req, res) => {
-  res.send('Hello World');
-});
+app.get<{ hash: string }, string, string>('/:hash', async (req, res) => {
 
-app.post<void, string, { hash: string }>('/', async (req, res) => {
-  console.log(req.body);
-
-  const hash = req.body.hash;
+  const hash = req.params.hash;
   console.log('hash:', hash);
 
   const data = new Identicon(hash, 420).toString()
